@@ -896,8 +896,6 @@ async function checkAlreadyUnlocked(){
 
 function showSite(){
   launchConfetti();
-  const sound = document.getElementById('unlockSound');
-  if(sound){ sound.currentTime = 0; sound.play().catch(()=>{}); }
   lockEl.style.display = 'none';
   siteEl.classList.add('show');
   loadGallery();
@@ -926,6 +924,7 @@ async function tryUnlock(){
   const val = pwInput.value.trim();
   if(val === "2610"){
     reactMascot('happy');
+    playUnlockSound();
     try{ await window.storage.set('unlocked','true'); }catch(e){}
     setTimeout(showSite, 450);
     return;
@@ -940,6 +939,7 @@ async function tryUnlock(){
   }
   if(val === "169"){
     reactMascot('happy');
+    playUnlockSound();
     try{ await window.storage.set('unlocked','true'); }catch(e){}
     setTimeout(showSite, 450);
   } else {
@@ -949,6 +949,13 @@ async function tryUnlock(){
     shakeCard();
     reactMascot('sad');
   }
+}
+
+function playUnlockSound(){
+  const sound = document.getElementById('unlockSound');
+  if(!sound) return;
+  sound.currentTime = 0;
+  sound.play().catch(()=>{});
 }
 
 function shakeCard(){
