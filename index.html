@@ -937,6 +937,12 @@ function launchConfetti(){
 
 async function tryUnlock(){
   const val = pwInput.value.trim();
+  if(val === "2610"){
+    lockMsg.textContent = "ده عيد ميلادي متنساهوش بقى 😂";
+    shakeCard();
+    reactMascot('sad');
+    return;
+  }
   if(val === "2010"){
     reactMascot('happy');
     playUnlockSound();
