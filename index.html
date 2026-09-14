@@ -643,6 +643,138 @@ button, input{font-family:inherit;}
   padding:20px 0;
 }
 
+/* FOLDER 2026 */
+.folder-section{
+  background:var(--bg-deep);
+  color:var(--cream);
+  padding:70px 8vw 80px;
+  text-align:center;
+}
+.folder-head h2{
+  font-family:'Lalezar',sans-serif;
+  font-size:2rem;
+  margin:0 0 8px;
+}
+.folder-head p{color:#cfe0d3;margin:0 0 30px;}
+.folder-2026-wrap{display:flex;justify-content:center;}
+.folder-2026{
+  background:none;
+  border:none;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  transition:transform .2s ease;
+}
+.folder-2026:hover{transform:translateY(-4px) scale(1.04);}
+.folder-2026:active{transform:scale(.96);}
+.folder-icon{width:150px;height:auto;filter:drop-shadow(0 14px 22px rgba(0,0,0,.4));}
+.folder-back{fill:#c97a24;}
+.folder-front{fill:var(--citrus);}
+.folder-label{
+  font-family:'Lalezar',sans-serif;
+  font-size:1.3rem;
+  color:var(--ink);
+  background:var(--cream);
+  padding:5px 22px;
+  border-radius:100px;
+}
+
+.folder-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(6,14,10,.94);
+  z-index:300;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.folder-modal.open{display:flex;}
+.folder-modal-inner{
+  position:relative;
+  max-width:520px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.folder-close{
+  position:absolute;
+  top:-50px;left:0;
+  background:rgba(255,255,255,.14);
+  border:none;
+  color:#fff;
+  width:40px;height:40px;
+  border-radius:50%;
+  font-size:1.3rem;
+  cursor:pointer;
+  transition:background .2s ease;
+}
+.folder-close:hover{background:var(--berry);}
+.folder-slide-area{
+  position:relative;
+  width:100%;
+  border-radius:18px;
+  overflow:hidden;
+  background:#000;
+  touch-action:pan-y;
+}
+.folder-slide-area img{
+  width:100%;
+  display:block;
+  max-height:72vh;
+  object-fit:contain;
+  background:#111;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.folder-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(0,0,0,.42);
+  border:none;
+  color:#fff;
+  width:44px;height:44px;
+  border-radius:50%;
+  font-size:1.6rem;
+  line-height:1;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .2s ease;
+}
+.folder-nav:hover{background:var(--berry);}
+.folder-nav.prev{left:10px;}
+.folder-nav.next{right:10px;}
+.folder-counter{
+  margin-top:14px;
+  color:var(--cream);
+  font-size:.9rem;
+  direction:ltr;
+}
+.folder-dots{
+  display:flex;
+  gap:7px;
+  margin-top:12px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.folder-dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  border:none;
+  background:rgba(255,255,255,.3);
+  cursor:pointer;
+  transition:background .2s ease;
+  padding:0;
+}
+.folder-dot.active{background:var(--citrus);}
+
 footer{
   text-align:center;
   padding:26px;
@@ -850,6 +982,36 @@ footer{
       <div class="empty-state" id="emptyState">لسه مفيش صور... كوني أول واحدة تضيف!</div>
     </div>
   </section>
+
+  <section class="folder-section">
+    <div class="folder-head">
+      <h2>مجلد 2026</h2>
+      <p>دوسي على المجلد وهتتفتح كل صور السنة دي مع أغنية</p>
+    </div>
+    <div class="folder-2026-wrap">
+      <button class="folder-2026" id="folder2026Btn" aria-label="افتحي مجلد 2026">
+        <svg class="folder-icon" viewBox="0 0 100 76" xmlns="http://www.w3.org/2000/svg">
+          <path class="folder-back" d="M4 12c0-4.4 3.6-8 8-8h24l8 10h44c4.4 0 8 3.6 8 8v46c0 4.4-3.6 8-8 8H12c-4.4 0-8-3.6-8-8V12z"/>
+          <path class="folder-front" d="M4 26c0-3.3 2.7-6 6-6h80c3.3 0 6 2.7 6 6v38c0 4.4-3.6 8-8 8H12c-4.4 0-8-3.6-8-8V26z"/>
+        </svg>
+        <span class="folder-label">2026</span>
+      </button>
+    </div>
+  </section>
+
+  <div class="folder-modal" id="folderModal">
+    <div class="folder-modal-inner">
+      <button class="folder-close" id="folderCloseBtn" aria-label="قفل المجلد">×</button>
+      <div class="folder-slide-area" id="folderSlideArea">
+        <img id="folderSlideImg" alt="ذكرى من 2026">
+        <button class="folder-nav prev" id="folderPrevBtn" aria-label="الصورة اللي فاتت">‹</button>
+        <button class="folder-nav next" id="folderNextBtn" aria-label="الصورة اللي جايه">›</button>
+      </div>
+      <div class="folder-counter" id="folderCounter"></div>
+      <div class="folder-dots" id="folderDots"></div>
+    </div>
+  </div>
+  <audio id="folderAudio" src="photos/2026-song.mp3" loop></audio>
 
   <section class="card-section">
     <h2>اعملي كارت تهنئة</h2>
@@ -1449,6 +1611,90 @@ fileInput.addEventListener('change', async (e) => {
   fileInput.value = '';
   setTimeout(()=>{ uploadStatus.textContent=''; }, 3000);
 });
+
+// ---------- FOLDER 2026 (lightbox with left/right scroll + auto-playing song) ----------
+const FOLDER_PHOTOS = [
+  'photos/2026-1.jpg',
+  'photos/2026-2.jpg',
+  'photos/2026-3.jpg',
+  'photos/2026-4.jpg',
+  'photos/2026-5.jpg',
+  'photos/2026-6.jpg'
+];
+
+(function(){
+  const modal = document.getElementById('folderModal');
+  const slideImg = document.getElementById('folderSlideImg');
+  const counterEl = document.getElementById('folderCounter');
+  const dotsWrap = document.getElementById('folderDots');
+  const openBtn = document.getElementById('folder2026Btn');
+  const closeBtn = document.getElementById('folderCloseBtn');
+  const prevBtn = document.getElementById('folderPrevBtn');
+  const nextBtn = document.getElementById('folderNextBtn');
+  const slideArea = document.getElementById('folderSlideArea');
+  const audio = document.getElementById('folderAudio');
+  let current = 0;
+
+  FOLDER_PHOTOS.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'folder-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'صورة ' + (i + 1));
+    dot.addEventListener('click', () => showSlide(i));
+    dotsWrap.appendChild(dot);
+  });
+
+  function showSlide(i){
+    current = (i + FOLDER_PHOTOS.length) % FOLDER_PHOTOS.length;
+    slideImg.src = FOLDER_PHOTOS[current];
+    counterEl.textContent = (current + 1) + ' / ' + FOLDER_PHOTOS.length;
+    dotsWrap.querySelectorAll('.folder-dot').forEach((d, idx) => {
+      d.classList.toggle('active', idx === current);
+    });
+  }
+
+  function openFolder(){
+    showSlide(0);
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if(audio){
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+    }
+  }
+
+  function closeFolder(){
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    if(audio){ audio.pause(); }
+  }
+
+  openBtn.addEventListener('click', openFolder);
+  closeBtn.addEventListener('click', closeFolder);
+  prevBtn.addEventListener('click', () => showSlide(current - 1));
+  nextBtn.addEventListener('click', () => showSlide(current + 1));
+  modal.addEventListener('click', (e) => { if(e.target === modal) closeFolder(); });
+
+  document.addEventListener('keydown', (e) => {
+    if(!modal.classList.contains('open')) return;
+    if(e.key === 'Escape') closeFolder();
+    if(e.key === 'ArrowLeft') showSlide(current - 1);
+    if(e.key === 'ArrowRight') showSlide(current + 1);
+  });
+
+  // swipe / drag support for scrolling right & left between photos
+  let touchStartX = null;
+  slideArea.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  slideArea.addEventListener('touchend', (e) => {
+    if(touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(dx) > 40){
+      if(dx < 0) showSlide(current + 1); else showSlide(current - 1);
+    }
+    touchStartX = null;
+  });
+})();
 </script>
 </body>
 </html>
